@@ -203,7 +203,27 @@ describe('StandardSqlFormatter', () => {
         b
       FROM
         t
-        CROSS JOIN t2 on t.id = t2.id_t
+        CROSS JOIN
+          t2
+            on t.id = t2.id_t
+    `);
+  });
+
+  it('formats SELECT query with multiple JOIN statements', () => {
+    const result = format(
+      'SELECT a, b FROM t INNER JOIN t2 on t.id = t2.id_t AND t.field = t2.field and t.field IS NULL'
+    );
+    expect(result).toBe(dedent/* sql */ `
+      SELECT
+        a,
+        b
+      FROM
+        t
+        INNER JOIN
+          t2
+            on t.id = t2.id_t
+            AND t.field = t2.field
+            and t.field IS NULL
     `);
   });
 
@@ -215,7 +235,8 @@ describe('StandardSqlFormatter', () => {
         b
       FROM
         t
-        CROSS APPLY fn(t.id)
+        CROSS APPLY
+          fn(t.id)
     `);
   });
 
@@ -246,7 +267,8 @@ describe('StandardSqlFormatter', () => {
         b
       FROM
         t
-        OUTER APPLY fn(t.id)
+        OUTER APPLY
+          fn(t.id)
     `);
   });
 

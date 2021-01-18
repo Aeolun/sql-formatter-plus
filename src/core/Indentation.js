@@ -53,6 +53,12 @@ export default class Indentation {
     }
   }
 
+  resetTopLevel() {
+    while (last(this.indentTypes) === INDENT_TYPE_TOP_LEVEL) {
+      this.indentTypes.pop();
+    }
+  }
+
   /**
    * Decreases indentation by one block-level indent.
    * If there are top-level indents within the block-level indent,

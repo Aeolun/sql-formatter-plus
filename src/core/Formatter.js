@@ -58,6 +58,12 @@ export default class Formatter {
       } else if (token.type === tokenTypes.RESERVED_TOP_LEVEL) {
         formattedQuery = this.formatTopLevelReservedWord(token, formattedQuery);
         this.previousReservedWord = token;
+      } else if (token.type === tokenTypes.EXTRA_INDENT) {
+        formattedQuery = this.formatExtraIndentWord(token, formattedQuery);
+        this.previousReservedWord = token;
+      } else if (token.type === tokenTypes.EXTRA_INDENT_NEWLINE) {
+        formattedQuery = this.formatExtraIndentNewlineWord(token, formattedQuery);
+        this.previousReservedWord = token;
       } else if (token.type === tokenTypes.RESERVED_TOP_LEVEL_NO_INDENT) {
         formattedQuery = this.formatTopLevelReservedWordNoIndent(token, formattedQuery);
         this.previousReservedWord = token;
@@ -107,8 +113,25 @@ export default class Formatter {
   }
 
   formatTopLevelReservedWord(token, query) {
-    this.indentation.decreaseTopLevel();
+    this.indentation.resetTopLevel();
 
+    query = this.addNewline(query);
+
+    this.indentation.increaseTopLevel();
+
+    query += this.equalizeWhitespace(this.formatReservedWord(token.value));
+    return this.addNewline(query);
+  }
+
+  formatExtraIndentWord(token, query) {
+    this.indentation.increaseTopLevel();
+    query = this.addNewline(query);
+
+    query += this.equalizeWhitespace(this.formatReservedWord(token.value)) + ' ';
+    return query;
+  }
+
+  formatExtraIndentNewlineWord(token, query) {
     query = this.addNewline(query);
 
     this.indentation.increaseTopLevel();

@@ -144,7 +144,8 @@ export default function behavesLikeSqlFormatter(language) {
         distinct *
       frOM
         foo
-        left join bar
+        left join
+          bar
       WHERe
         a > 1
         and b = 3
@@ -184,7 +185,9 @@ export default function behavesLikeSqlFormatter(language) {
         COUNT(order_id) AS total
       FROM
         customers
-        INNER JOIN orders ON customers.customer_id = orders.customer_id;
+        INNER JOIN
+          orders
+            ON customers.customer_id = orders.customer_id;
     `);
   });
 
@@ -357,7 +360,8 @@ export default function behavesLikeSqlFormatter(language) {
         *
       FROM
         foo
-        LEFT OUTER JOIN bar
+        LEFT OUTER JOIN
+          bar
       ORDER BY
         blah
     `);
@@ -487,7 +491,8 @@ export default function behavesLikeSqlFormatter(language) {
         DISTINCT *
       FROM
         foo
-        LEFT JOIN bar
+        LEFT JOIN
+          bar
       WHERE
         cola > 1
         AND colb = 3

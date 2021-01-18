@@ -219,6 +219,21 @@ const reservedNewlineWords = [
   'XOR'
 ];
 
+const extraIndentWords = ['ON'];
+
+const extraIndentNewlineWords = [
+  'CROSS APPLY',
+  'CROSS JOIN',
+  'INNER JOIN',
+  'JOIN',
+  'LEFT JOIN',
+  'LEFT OUTER JOIN',
+  'OUTER APPLY',
+  'OUTER JOIN',
+  'RIGHT JOIN',
+  'RIGHT OUTER JOIN'
+];
+
 let tokenizer;
 
 export default class N1qlFormatter {
@@ -242,6 +257,8 @@ export default class N1qlFormatter {
         reservedTopLevelWords,
         reservedNewlineWords,
         reservedTopLevelWordsNoIndent,
+        extraIndentWords,
+        extraIndentNewlineWords,
         stringTypes: [`""`, "''", '``'],
         openParens: ['(', '[', '{'],
         closeParens: [')', ']', '}'],

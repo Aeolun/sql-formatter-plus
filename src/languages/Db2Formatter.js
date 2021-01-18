@@ -546,6 +546,21 @@ const reservedNewlineWords = [
   'RIGHT OUTER JOIN'
 ];
 
+const extraIndentWords = ['ON'];
+
+const extraIndentNewlineWords = [
+  'CROSS APPLY',
+  'CROSS JOIN',
+  'INNER JOIN',
+  'JOIN',
+  'LEFT JOIN',
+  'LEFT OUTER JOIN',
+  'OUTER APPLY',
+  'OUTER JOIN',
+  'RIGHT JOIN',
+  'RIGHT OUTER JOIN'
+];
+
 let tokenizer;
 
 export default class Db2Formatter {
@@ -569,6 +584,8 @@ export default class Db2Formatter {
         reservedTopLevelWords,
         reservedNewlineWords,
         reservedTopLevelWordsNoIndent,
+        extraIndentWords,
+        extraIndentNewlineWords,
         stringTypes: [`""`, "''", '``', '[]'],
         openParens: ['('],
         closeParens: [')'],

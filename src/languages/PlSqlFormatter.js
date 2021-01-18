@@ -410,6 +410,21 @@ const reservedNewlineWords = [
   'XOR'
 ];
 
+const extraIndentWords = ['ON'];
+
+const extraIndentNewlineWords = [
+  'CROSS APPLY',
+  'CROSS JOIN',
+  'INNER JOIN',
+  'JOIN',
+  'LEFT JOIN',
+  'LEFT OUTER JOIN',
+  'OUTER APPLY',
+  'OUTER JOIN',
+  'RIGHT JOIN',
+  'RIGHT OUTER JOIN'
+];
+
 const tokenOverride = (token, previousReservedToken) => {
   if (
     token.type === tokenTypes.RESERVED_TOP_LEVEL &&
@@ -444,6 +459,8 @@ export default class PlSqlFormatter {
         reservedTopLevelWords,
         reservedNewlineWords,
         reservedTopLevelWordsNoIndent,
+        extraIndentWords,
+        extraIndentNewlineWords,
         stringTypes: [`""`, "N''", "''", '``'],
         openParens: ['(', 'CASE'],
         closeParens: [')', 'END'],

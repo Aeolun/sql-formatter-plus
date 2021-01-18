@@ -304,22 +304,21 @@ const reservedTopLevelWords = [
 
 const reservedTopLevelWordsNoIndent = ['INTERSECT', 'INTERSECT ALL', 'MINUS', 'UNION', 'UNION ALL'];
 
-const reservedNewlineWords = [
-  'AND',
+const reservedNewlineWords = ['AND', 'ELSE', 'OR', 'WHEN', 'XOR'];
+
+const extraIndentWords = ['ON'];
+
+const extraIndentNewlineWords = [
   'CROSS APPLY',
   'CROSS JOIN',
-  'ELSE',
   'INNER JOIN',
   'JOIN',
   'LEFT JOIN',
   'LEFT OUTER JOIN',
-  'OR',
   'OUTER APPLY',
   'OUTER JOIN',
   'RIGHT JOIN',
-  'RIGHT OUTER JOIN',
-  'WHEN',
-  'XOR'
+  'RIGHT OUTER JOIN'
 ];
 
 let tokenizer;
@@ -345,6 +344,8 @@ export default class StandardSqlFormatter {
         reservedTopLevelWords,
         reservedNewlineWords,
         reservedTopLevelWordsNoIndent,
+        extraIndentWords,
+        extraIndentNewlineWords,
         stringTypes: [`""`, "N''", "''", '``', '[]'],
         openParens: ['(', 'CASE'],
         closeParens: [')', 'END'],

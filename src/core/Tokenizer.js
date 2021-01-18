@@ -29,6 +29,15 @@ export default class Tokenizer {
     this.RESERVED_TOP_LEVEL_NO_INDENT_REGEX = this.createReservedWordRegex(
       cfg.reservedTopLevelWordsNoIndent
     );
+    this.RESERVED_EXTRA_INDENT_REGEX =
+      cfg.extraIndentWords.length > 0
+        ? this.createReservedWordRegex(cfg.extraIndentWords)
+        : undefined;
+
+    this.RESERVED_EXTRA_INDENT_NEWLINE_REGEX =
+      cfg.extraIndentNewlineWords.length > 0
+        ? this.createReservedWordRegex(cfg.extraIndentNewlineWords)
+        : undefined;
     this.RESERVED_NEWLINE_REGEX = this.createReservedWordRegex(cfg.reservedNewlineWords);
     this.RESERVED_PLAIN_REGEX = this.createReservedWordRegex(cfg.reservedWords);
 
@@ -282,6 +291,8 @@ export default class Tokenizer {
     }
     return (
       this.getTopLevelReservedToken(input) ||
+      this.getExtraIndentToken(input) ||
+      this.getExtraIndentNewlineToken(input) ||
       this.getNewlineReservedToken(input) ||
       this.getTopLevelReservedTokenNoIndent(input) ||
       this.getPlainReservedToken(input)
@@ -293,6 +304,24 @@ export default class Tokenizer {
       input,
       type: tokenTypes.RESERVED_TOP_LEVEL,
       regex: this.RESERVED_TOP_LEVEL_REGEX
+    });
+  }
+
+  getExtraIndentToken(input) {
+    if (!this.RESERVED_EXTRA_INDENT_REGEX) return undefined;
+    return this.getTokenOnFirstMatch({
+      input,
+      type: tokenTypes.EXTRA_INDENT,
+      regex: this.RESERVED_EXTRA_INDENT_REGEX
+    });
+  }
+
+  getExtraIndentNewlineToken(input) {
+    if (!this.RESERVED_EXTRA_INDENT_NEWLINE_REGEX) return undefined;
+    return this.getTokenOnFirstMatch({
+      input,
+      type: tokenTypes.EXTRA_INDENT_NEWLINE,
+      regex: this.RESERVED_EXTRA_INDENT_NEWLINE_REGEX
     });
   }
 

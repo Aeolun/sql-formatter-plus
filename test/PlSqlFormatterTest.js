@@ -130,7 +130,9 @@ describe('PlSqlFormatter', () => {
         b
       FROM
         t
-        CROSS JOIN t2 on t.id = t2.id_t
+        CROSS JOIN
+          t2
+            on t.id = t2.id_t
     `);
   });
 
@@ -142,7 +144,8 @@ describe('PlSqlFormatter', () => {
         b
       FROM
         t
-        CROSS APPLY fn(t.id)
+        CROSS APPLY
+          fn(t.id)
     `);
   });
 
@@ -173,7 +176,8 @@ describe('PlSqlFormatter', () => {
         b
       FROM
         t
-        OUTER APPLY fn(t.id)
+        OUTER APPLY
+          fn(t.id)
     `);
   });
 
