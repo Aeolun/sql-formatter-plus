@@ -177,7 +177,7 @@ export default function behavesLikeSqlFormatter(language) {
   it('formats SELECT query with INNER JOIN', () => {
     const result = format(`
       SELECT customer_id.from, COUNT(order_id) AS total FROM customers
-      INNER JOIN orders ON customers.customer_id = orders.customer_id;
+      INNER JOIN orders ON customers.customer_id = orders.customer_id INNER JOIN orders ON customers.customer_id = orders.customer_id;
     `);
     expect(result).toBe(dedent/* sql */ `
       SELECT
@@ -185,6 +185,9 @@ export default function behavesLikeSqlFormatter(language) {
         COUNT(order_id) AS total
       FROM
         customers
+        INNER JOIN
+          orders
+            ON customers.customer_id = orders.customer_id
         INNER JOIN
           orders
             ON customers.customer_id = orders.customer_id;

@@ -132,6 +132,8 @@ export default class Formatter {
   }
 
   formatExtraIndentNewlineWord(token, query) {
+    this.indentation.resetTopLevel();
+    this.indentation.increaseTopLevel();
     query = this.addNewline(query);
 
     this.indentation.increaseTopLevel();
